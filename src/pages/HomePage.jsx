@@ -26,6 +26,7 @@ import {
   ScanLine,
   Search,
   Hash,
+  Star,
 } from "lucide-react";
 
 import ArrayPage from "./Arrays/Arrays.jsx";
@@ -50,6 +51,7 @@ import BacktrackingPage from "./Backtracking/Backtracking.jsx";
 import StringPage from "./Strings/Strings.jsx";
 import BitPage from "./BitManipulation/BitManipulation.jsx";
 import HashingPage from "./Hashing/Hashing.jsx";
+import ReviewLater from "./ReviewLater.jsx";
 
 const AlgorithmCategories = ({ navigate }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -372,8 +374,17 @@ const AlgorithmCategories = ({ navigate }) => {
                 interactive visualizations
               </span>
             </p>
-            {/* Global Search */}
+            {/* Global Search and Review Later Button */}
             <div className="max-w-2xl mx-auto px-4">
+              <div className="flex items-center gap-4 mb-4">
+                <button
+                  onClick={() => navigate("ReviewLater")}
+                  className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-500/15 to-amber-500/15 rounded-xl border border-yellow-500/30 hover:border-yellow-500/50 transition-all duration-300 hover:scale-105"
+                >
+                  <Star className="h-5 w-5 text-yellow-400" />
+                  <span className="text-yellow-300 font-medium">Review Later</span>
+                </button>
+              </div>
               <form onSubmit={handleSubmit} className="relative z-50">
                 <div className="flex items-center gap-2 bg-gray-900/80 border border-gray-800 rounded-2xl px-4 py-3 shadow-lg focus-within:border-blue-500/50">
                   <SearchCode className="h-5 w-5 text-gray-400" />
@@ -708,6 +719,8 @@ const HomePage = () => {
         return <DPPage navigate={navigate} initialPage={initialSubPage} />;
       case "BitManipulation":
         return <BitPage navigate={navigate} initialPage={initialSubPage} />;
+      case "ReviewLater":
+        return <ReviewLater navigate={navigate} />;
       case "home":
       default:
         return <AlgorithmCategories navigate={navigate} />;

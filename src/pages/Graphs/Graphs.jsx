@@ -19,6 +19,7 @@ import DFS from "./DFS.jsx";
 import Dijkstra from "./Dijkstra.jsx";
 import TopologicalSort from "./TopologicalSort.jsx";
 import Kruskal from "./Kruskal.jsx";
+import StarButton from "../../components/StarButton.jsx";
 
 const AlgorithmList = ({ navigate }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -227,6 +228,11 @@ const AlgorithmList = ({ navigate }) => {
                       </h2>
                     </div>
                   </div>
+                  <StarButton
+                    algorithmId={algo.name}
+                    algorithmName={algo.name}
+                    category="Graphs"
+                  />
                 </div>
 
                 <p

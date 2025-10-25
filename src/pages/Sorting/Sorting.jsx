@@ -33,6 +33,7 @@ import CountingSortVisualizer from "./CountingSort";
 import HeapSortVisualizer from "./HeapSort";
 import  SelectionSortVisualizer from "./SelectionSort";
 import ShellSortVisualizer from "./ShellSort";
+import StarButton from "../../components/StarButton.jsx";
 const AlgorithmList = ({ navigate }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
@@ -292,6 +293,11 @@ const AlgorithmList = ({ navigate }) => {
                       </h2>
                     </div>
                   </div>
+                  <StarButton
+                    algorithmId={algo.name}
+                    algorithmName={algo.name}
+                    category="Sorting"
+                  />
                 </div>
 
                 <p

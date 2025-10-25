@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Star Feature</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: #1a1a1a; 
+            color: white; 
+        }
+        .test-section { 
+            margin: 20px 0; 
+            padding: 20px; 
+            border: 1px solid #333; 
+            border-radius: 8px; 
+        }
+        button { 
+            padding: 10px 20px; 
+            margin: 5px; 
+            background: #4CAF50; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+        }
+        button:hover { background: #45a049; }
+        .starred { background: #ffd700; color: black; }
+        #output { 
+            background: #2a2a2a; 
+            padding: 10px; 
+            border-radius: 4px; 
+            margin-top: 10px; 
+            font-family: monospace; 
+        }
+    </style>
+</head>
+<body>
+    <h1>⭐ Star Feature Test</h1>
+    
+    <div class="test-section">
+        <h2>Test localStorage Functionality</h2>
+        <button onclick="testAddStar()">Add Algorithm to Stars</button>
+        <button onclick="testRemoveStar()">Remove Algorithm from Stars</button>
+        <button onclick="testGetStars()">Get All Starred Algorithms</button>
+        <button onclick="testClearStars()">Clear All Stars</button>
+        <div id="output"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Star Button Component</h2>
+        <div style="display: flex; gap: 20px; align-items: center;">
+            <span>Bubble Sort</span>
+            <button id="starBtn" onclick="toggleStar()" class="star-btn">⭐</button>
+        </div>
+    </div>
+
+    <script>
+        function testAddStar() {
+            const algorithm = {
+                id: "BubbleSort",
+                name: "Bubble Sort",
+                category: "Sorting",
+                timestamp: new Date().toISOString()
+            };
+            
+            const starred = JSON.parse(localStorage.getItem('starredAlgorithms') || '[]');
+            starred.push(algorithm);
+            localStorage.setItem('starredAlgorithms', JSON.stringify(starred));
+            
+            document.getElementById('output').textContent = 'Added Bubble Sort to starred algorithms';
+        }
+
+        function testRemoveStar() {
+            const starred = JSON.parse(localStorage.getItem('starredAlgorithms') || '[]');
+            const filtered = starred.filter(algo => algo.id !== 'BubbleSort');
+            localStorage.setItem('starredAlgorithms', JSON.stringify(filtered));
+            
+            document.getElementById('output').textContent = 'Removed Bubble Sort from starred algorithms';
+        }
+
+        function testGetStars() {
+            const starred = JSON.parse(localStorage.getItem('starredAlgorithms') || '[]');
+            document.getElementById('output').textContent = JSON.stringify(starred, null, 2);
+        }
+
+        function testClearStars() {
+            localStorage.removeItem('starredAlgorithms');
+            document.getElementById('output').textContent = 'Cleared all starred algorithms';
+        }
+
+        function toggleStar() {
+            const btn = document.getElementById('starBtn');
+            const starred = JSON.parse(localStorage.getItem('starredAlgorithms') || '[]');
+            const isStarred = starred.some(algo => algo.id === 'BubbleSort');
+            
+            if (isStarred) {
+                // Remove from starred
+                const filtered = starred.filter(algo => algo.id !== 'BubbleSort');
+                localStorage.setItem('starredAlgorithms', JSON.stringify(filtered));
+                btn.textContent = '⭐';
+                btn.classList.remove('starred');
+            } else {
+                // Add to starred
+                const algorithm = {
+                    id: "BubbleSort",
+                    name: "Bubble Sort",
+                    category: "Sorting",
+                    timestamp: new Date().toISOString()
+                };
+                starred.push(algorithm);
+                localStorage.setItem('starredAlgorithms', JSON.stringify(starred));
+                btn.textContent = '⭐';
+                btn.classList.add('starred');
+            }
+        }
+
+        // Initialize star button state
+        window.onload = function() {
+            const starred = JSON.parse(localStorage.getItem('starredAlgorithms') || '[]');
+            const isStarred = starred.some(algo => algo.id === 'BubbleSort');
+            const btn = document.getElementById('starBtn');
+            
+            if (isStarred) {
+                btn.classList.add('starred');
+            }
+        };
+    </script>
+</body>
+</html>
